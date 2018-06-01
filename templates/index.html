@@ -1,38 +1,52 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Bio Data</title>
-    <!-- Font Awesome -->
+<html lang="en" class="full-height" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Bio Data</title>
+  <!-- fonts and stuff -->
+  <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- Bootstrap core CSS -->
+  <!-- Bootstrap core CSS -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Material Design Bootstrap -->
+  <!-- Material Design Bootstrap -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.0/css/mdb.min.css" rel="stylesheet">
+  <!-- Importing custom css -->
+  <link rel="stylesheet" href="../static/index.css">
 
-  </head>
-  <body>
-    <div class="row">
-      <div class="col">
-        <select class="selDataset" onChange="">
-          <option value=""></option>
-        </select>
-      </div>
-      <div class="col">
+</head>
 
-      </div>
+<body scroll="no">
+  <!-- header section -->
+  <div class="row h-25 px-0" id="header">
+    <div class="title mx-auto my-auto">
+      <h1>Belly button diversity result data set visualization</h1>
     </div>
+  </div>
+  <!-- web Content section     -->
+  <div class="row h-100">
+    <div class="col-3 h-100 px-0" id="userSelectionArea">
+
+    </div>
+    <div class="col-9 h-100 px-0" id="resultDisplayArea">
+
+    </div>
+  </div>
 
 
-    <!-- Plot.js -->
-      <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <!-- JQuery -->
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <!-- Bootstrap tooltips -->
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
-    <!-- Bootstrap core JavaScript -->
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <!-- MDB core JavaScript -->
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.0/js/mdb.min.js"></script>
-  </body>
+  <!-- Plot.js -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <!-- JQuery -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.0/js/mdb.min.js"></script>
+  <!-- Linking js file -->
+  <script type="text/javascript" src="../static/index.js"></script>
+</body>
+
 </html>

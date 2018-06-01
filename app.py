@@ -1,4 +1,6 @@
 from flask import Flask, jsonify, render_template
+import json
+
 app = Flask(__name__)
 
 @app.route("/")
@@ -23,7 +25,17 @@ def names():
         ...
     ]
     """
-    return render_template('index.html')
+    nameData = [
+            "BB_940",
+            "BB_941",
+            "BB_943",
+            "BB_944",
+            "BB_945",
+            "BB_946",
+            "BB_947"]
+
+
+    return jsonify(nameData)
 
 @app.route('/otu')
 def otu():

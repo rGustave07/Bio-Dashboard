@@ -1,0 +1,21 @@
+#header{
+  background-color: #133589;
+}
+
+#userSelectionArea{
+  background-color: #2A93D5;
+}
+
+#resultDisplayArea{
+  background-color: #AED9DA;
+}
+
+.title{
+  font-family: 'Kanit', sans-serif;
+  font-size: 25px;
+  color: white;
+}
+
+body{
+  overflow: hidden;
+}
