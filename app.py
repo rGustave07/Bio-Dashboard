@@ -52,7 +52,13 @@ def otu():
         ...
     ]
     """
-    return render_template('index.html')
+    data = [   "Archaea;Euryarchaeota;Halobacteria;Halobacteriales;Halobacteriaceae;Halococcus",
+        "Archaea;Euryarchaeota;Halobacteria;Halobacteriales;Halobacteriaceae;Halococcus",
+        "Bacteria",
+        "Bacteria",
+        "Bacteria"
+    ]
+    return jsonify(data)
 
 @app.route('/metadata/<sample>')
 def metadata():
