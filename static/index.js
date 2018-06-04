@@ -1,5 +1,6 @@
+window.onload = (e) => {
+  console.log("document ready:", e);
 
 
-function updateList(){
-    return 0;
+
 }

@@ -1,5 +1,7 @@
 from flask import Flask, jsonify, render_template
+import pandas as pd
 import json
+import re
 
 app = Flask(__name__)
 
@@ -9,117 +11,72 @@ def index():
     return render_template('index.html')
 
 
+
+
 @app.route("/names")
 def names():
-    """
-    List of Simple Names
-    Return a simple list of Names
-       [
-        "BB_940",
-        "BB_941",
-        "BB_943",
-        "BB_944",
-        "BB_945",
-        "BB_946",
-        "BB_947",
-        ...
-    ]
-    """
-    nameData = [
-            "BB_940",
-            "BB_941",
-            "BB_943",
-            "BB_944",
-            "BB_945",
-            "BB_946",
-            "BB_947"]
+# Read in CSV to DF
+    namesdf = pd.read_csv('./data/belly_button_biodiversity_samples.csv')
+    nameList = namesdf.columns.values[1:]
+    return jsonify(nameList.tolist())
 
 
-    return jsonify(nameData)
+
 
 @app.route('/otu')
 def otu():
-    """List of OTU descriptions.
+# Read in CSV to DF
+    otudf = pd.read_csv('./data/belly_button_biodiversity_otu_id.csv')
+    return jsonify(otudf['lowest_taxonomic_unit_found'].tolist())
 
-    Returns a list of OTU descriptions in the following format
 
-    [
-        "Archaea;Euryarchaeota;Halobacteria;Halobacteriales;Halobacteriaceae;Halococcus",
-        "Archaea;Euryarchaeota;Halobacteria;Halobacteriales;Halobacteriaceae;Halococcus",
-        "Bacteria",
-        "Bacteria",
-        "Bacteria",
-        ...
-    ]
-    """
-    data = [   "Archaea;Euryarchaeota;Halobacteria;Halobacteriales;Halobacteriaceae;Halococcus",
-        "Archaea;Euryarchaeota;Halobacteria;Halobacteriales;Halobacteriaceae;Halococcus",
-        "Bacteria",
-        "Bacteria",
-        "Bacteria"
-    ]
-    return jsonify(data)
+
 
 @app.route('/metadata/<sample>')
-def metadata():
-    """MetaData for a given sample.
+def metadata(sample):
+    if not sample.isdigit():
+        return("<h1>Not a digit</h1>")
 
-    Args: Sample in the format: `BB_940`
-
-    Returns a json dictionary of sample metadata in the format
-
-    {
-        AGE: 24,
-        BBTYPE: "I",
-        ETHNICITY: "Caucasian",
-        GENDER: "F",
-        LOCATION: "Beaufort/NC",
-        SAMPLEID: 940
+    samplesdf = pd.read_csv('./data/Belly_Button_Biodiversity_Metadata.csv')
+    resultantdf = samplesdf[samplesdf['SAMPLEID'] == int(sample)]
+    returnResult = {
+        "AGE": resultantdf['AGE'].values[0].item(),
+        "BBTYPE": resultantdf['BBTYPE'].values[0],
+        "ETHNICITY": resultantdf['ETHNICITY'].values[0],
+        "GENDER": resultantdf['GENDER'].values[0],
+        "LOCATION": resultantdf['LOCATION'].values[0],
+        "SAMPLEID": resultantdf['SAMPLEID'].values[0].item()
     }
-    """
-    return render_template('index.html')
+    return jsonify(returnResult)
+
+
 
 
 @app.route('/wfreq/<sample>')
-def wfreq():
-    """Weekly Washing Frequency as a number.
+def wfreq(sample):
+    bbdf = pd.read_csv('./data/Belly_Button_Biodiversity_Metadata.csv')
+    searchedRow = bbdf[bbdf['SAMPLEID'] == int(sample)]
+    print(int(searchedRow['WFREQ'].values[0]))
+    return jsonify(int(searchedRow['WFREQ'].values[0]))
 
-    Args: Sample in the format: `BB_940`
 
-    Returns an integer value for the weekly washing frequency `WFREQ`
-    """
-    return render_template('index.html')
 
 
 @app.route('/samples/<sample>')
-def samples():
-    """OTU IDs and Sample Values for a given sample.
-
-    Sort your Pandas DataFrame (OTU ID and Sample Value)
-    in Descending Order by Sample Value
-
-    Return a list of dictionaries containing sorted lists  for `otu_ids`
-    and `sample_values`
-
-    [
+def samples(sample):
+    samples = pd.read_csv('./data/belly_button_biodiversity_samples.csv')
+    s = sample
+    # return render_template('index.html')
+    resultantdf = samples.loc[ samples[s] > 0, [s, 'otu_id']]
+    returnDict = [
         {
-            otu_ids: [
-                1166,
-                2858,
-                481,
-                ...
-            ],
-            sample_values: [
-                163,
-                126,
-                113,
-                ...
-            ]
+            "otu_ids": resultantdf[s].tolist()
+        },
+        {
+            "sample_Values": resultantdf['otu_id'].values.tolist()
         }
     ]
-    """
-    return render_template('index.html')
-
+    return jsonify(returnDict)
 
 if __name__ == "__main__":
     app.run(debug=True)
