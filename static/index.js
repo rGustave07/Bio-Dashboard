@@ -36,10 +36,15 @@ let onSampleChange = (e) => {
           labels: data[0].otu_ids.slice(0,10),
           type: "pie"
         }]
+        layout = {
+          paper_bgcolor: '#AED9DA',
+          width: '425',
+          height: '425'
+        }
 
         console.log(graphData);
 
-        Plotly.newPlot('plotGraph', graphData)
+        Plotly.newPlot('plotGraph', graphData, layout);
     }
   })
 }
