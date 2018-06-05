@@ -27,7 +27,7 @@ def names():
 def otu():
 # Read in CSV to DF
     otudf = pd.read_csv('./data/belly_button_biodiversity_otu_id.csv')
-    return jsonify(otudf['lowest_taxonomic_unit_found'].tolist())
+    return jsonify(otudf[['lowest_taxonomic_unit_found']].to_dict())
 
 
 
@@ -66,7 +66,7 @@ def wfreq(sample):
 def samples(sample):
     samples = pd.read_csv('./data/belly_button_biodiversity_samples.csv')
     s = sample
-    # return render_template('index.html')
+
     resultantdf = samples.loc[ samples[s] > 0, [s, 'otu_id']]
     returnDict = [
         {

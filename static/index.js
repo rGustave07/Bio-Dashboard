@@ -21,5 +21,25 @@ let populateSampleNames = () => {
 
 let onSampleChange = (e) => {
   console.log("Changed to: ", e.value);
-  return e.value
+
+  // Code that draws graph
+  Plotly.d3.json(`/samples/${e.value}`, (error, data) => {
+    if (error) {
+        console.log(error);
+    } else {
+        // Plotly.d3.json('/otu', (error, otudata) => {
+        //     console.log(data);
+        //     console.log(otudata);
+        // })
+        graphData = [{
+          values: data[1].sample_Values.slice(0,10),
+          labels: data[0].otu_ids.slice(0,10),
+          type: "pie"
+        }]
+
+        console.log(graphData);
+
+        Plotly.newPlot('plotGraph', graphData)
+    }
+  })
 }
